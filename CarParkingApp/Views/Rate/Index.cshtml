@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/moment.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/tempusdominus-bootstrap-4.min.js"></script>
+<link href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<link href="~/lib/bootstrap/dist/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+<h1>Index</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="input-group date" id="StartTime" data-target-input="nearest">
+                    <lable>Start Time</lable>
+                    <input type="text" id="dtStartTime" class="form-control datetimepicker-input" data-target="#StartTime" />
+                    <div class="input-group-append" data-target="#StartTime" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="input-group date" id="EndTime" data-target-input="nearest">
+                    <lable>End Time</lable>
+                    <input type="text" id="dtEndTime" class="form-control datetimepicker-input" data-target="#EndTime" />
+                    <div class="input-group-append" data-target="#EndTime" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <input type="button" onclick="payrate()" value="submit" />
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#dtStartTime').datetimepicker({
+                    format: 'dd/MM/yyyy hh:mm:ss',
+                    language: 'en',
+                    pick12HourFormat: false
+                });
+                $('#dtEndTime').datetimepicker({
+                    format: 'dd/MM/yyyy hh:mm:ss',
+                    language: 'en',
+                    pick12HourFormat: false
+                });
+            });
+        </script>
+    </div>
+</div>
+
+<script>
+    function payrate() {
+       
+        $.ajax({
+            type: "POST",
+            url: "/api/PayRate/CalculateRate",
+            data: { startTime: $('#dtStartTime').val(), endTime: $('#dtEndTime').val() },
+            success: function (result) {
+                alert(result);
+            }
+        });
+    };
+</script>
