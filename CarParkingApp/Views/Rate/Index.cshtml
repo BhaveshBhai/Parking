@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = "Index";
 }
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
 <script src="~/lib/bootstrap/dist/js/moment.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/tempusdominus-bootstrap-4.min.js"></script>
 <link href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.css" rel="stylesheet" />
@@ -15,7 +19,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="input-group date" id="StartTime" data-target-input="nearest">
-                    <lable>Start Time</lable>
+                    <lable  class="col-form-label">Start Time</lable>
                     <input type="text" id="dtStartTime" class="form-control datetimepicker-input" data-target="#StartTime" />
                     <div class="input-group-append" data-target="#StartTime" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -26,7 +30,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="input-group date" id="EndTime" data-target-input="nearest">
-                    <lable>End Time</lable>
+                    <lable  class="col-form-label">End Time</lable>
                     <input type="text" id="dtEndTime" class="form-control datetimepicker-input" data-target="#EndTime" />
                     <div class="input-group-append" data-target="#EndTime" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -35,35 +39,54 @@
             </div>
         </div>
 
-        <div>
-            <input type="button" onclick="payrate()" value="submit" />
+        <div class="col-sm-6">
+            <input type="button" class="btn btn-primary" onclick="payrate()" value="submit" />
         </div>
         <script type="text/javascript">
             $(function () {
                 $('#dtStartTime').datetimepicker({
-                    format: 'dd/MM/yyyy hh:mm:ss',
-                    language: 'en',
-                    pick12HourFormat: false
+                    format:'MM/dd/yyyy hh:mm:ss a'
                 });
                 $('#dtEndTime').datetimepicker({
-                    format: 'dd/MM/yyyy hh:mm:ss',
-                    language: 'en',
-                    pick12HourFormat: false
+                    format:'MM/dd/yyyy hh:mm:ss a'
                 });
             });
         </script>
     </div>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="chargeModel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chargeModel">Parking Charge</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Total Amount:</label>
+                    <input type="text" class="form-control" id="PayrateCaluculate" disabled>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
 <script>
     function payrate() {
-       
+        var sTime = $('#dtStartTime').val();
+        var eTime = $('#dtEndTime').val();
+        
         $.ajax({
-            type: "POST",
-            url: "/api/PayRate/CalculateRate",
-            data: { startTime: $('#dtStartTime').val(), endTime: $('#dtEndTime').val() },
+            type: "GET",
+            url: "/api/PayRate/GetRate",
+           data:{startTime:sTime, endTime: eTime },
             success: function (result) {
-                alert(result);
+                $("#PayrateCaluculate").val(result);
+                $('#exampleModal').modal('show');
             }
         });
     };

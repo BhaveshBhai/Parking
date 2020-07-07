@@ -14,9 +14,9 @@ namespace CarParkingApp.Controllers
     {
         CalculateRate CR = new CalculateRate();
        
-        [Route("CalculateRate")]
-
-        public async Task<IActionResult> CalculateRate(DateTime startTime, DateTime endTime)
+        [HttpGet]
+        [Route("GetRate")]
+        public async Task<ActionResult> GetRate(DateTime startTime, DateTime endTime)
         {
             return Ok(CR.RateCalculate(startTime, endTime));
         }
