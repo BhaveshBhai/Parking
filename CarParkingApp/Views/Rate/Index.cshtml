@@ -84,7 +84,6 @@
             url: "/api/PayRate/GetRate",
            data:{startTime:sTime, endTime: eTime },
             success: function (result) {
-                alert(result);
                 $("#PayrateCaluculate").html(result);
                 $('#exampleModal').modal('show');
             }
