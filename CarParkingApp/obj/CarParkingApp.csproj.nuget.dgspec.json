@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Deveoper\\source\\repos\\CarParkingApp\\CarParkingApp.csproj": {}
+    "F:\\bhavesh\\ParkingRate\\CarParkingApp\\CarParkingApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Deveoper\\source\\repos\\CarParkingApp\\CarParkingApp.csproj": {
+    "F:\\bhavesh\\ParkingRate\\CarParkingApp\\CarParkingApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Deveoper\\source\\repos\\CarParkingApp\\CarParkingApp.csproj",
+        "projectUniqueName": "F:\\bhavesh\\ParkingRate\\CarParkingApp\\CarParkingApp.csproj",
         "projectName": "CarParkingApp",
-        "projectPath": "C:\\Users\\Deveoper\\source\\repos\\CarParkingApp\\CarParkingApp.csproj",
+        "projectPath": "F:\\bhavesh\\ParkingRate\\CarParkingApp\\CarParkingApp.csproj",
         "packagesPath": "C:\\Users\\Deveoper\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Deveoper\\source\\repos\\CarParkingApp\\obj\\",
+        "outputPath": "F:\\bhavesh\\ParkingRate\\CarParkingApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

@@ -8,8 +8,10 @@ namespace CarParkingApp.Models
 {
     public class CalculateRate
     {
-        public float RateCalculate(DateTime startTime, DateTime endTime)
+        public string RateCalculate(DateTime startTime, DateTime endTime)
         {
+            try
+            {
             DayOfWeek dayOfWeek = startTime.DayOfWeek;
             if ((startTime.Date == endTime.Date) || (startTime.Date.AddHours(24).AddMinutes(0).AddSeconds(0) == endTime))
             {
@@ -20,7 +22,7 @@ namespace CarParkingApp.Models
                         {
                             int TotalHours = (int)(endTime - startTime).TotalHours;
                            var rate= StandardRateCalculate(TotalHours);
-                            return rate > WeekEndRate.rate ? WeekEndRate.rate : rate;
+                            return "Weekend Rate is :- " + (rate > WeekEndRate.rate ? WeekEndRate.rate : rate);
                         }
                             break;
                     case DayOfWeek.Sunday:
@@ -28,31 +30,39 @@ namespace CarParkingApp.Models
                         {
                             int TotalHours = (int)(endTime - startTime).TotalHours;
                             var rate = StandardRateCalculate(TotalHours);
-                            return rate > WeekEndRate.rate ? WeekEndRate.rate : rate;
+                            return "Weekend Rate is :- " + (rate > WeekEndRate.rate ? WeekEndRate.rate : rate);
                         }
                         break;
                     default:
                         if (IsEarlyStart(startTime) && IsEarlyEnd(endTime))
                         {
-                            return EarlyBird.Rate;
+                            return "Early Bird Rate is :- "+ EarlyBird.Rate;
                         }
-                        else if ((endTime.Date==startTime.AddDays(1).Date) && IsNightStart(startTime) && IsNightEndTime(endTime))
-                        {
-                            return NightRate.Rate;
-                        }
+                        
                         else if ((startTime.Date == endTime.Date) || (startTime.Date.AddHours(24).AddMinutes(0).AddSeconds(0) == endTime))
                         {
                             int TotalHours = (int)(endTime - startTime).TotalHours;
-                           return StandardRateCalculate(TotalHours);
+                           return "Standard Rate is :- "+ StandardRateCalculate(TotalHours);
                         }
-                        else
-                        {
-                            return (endTime.Date - startTime.Date).Days * StandardRate.ThreePluse;
-                        }
+                        
                             break;
                 }
             }
-            return 0;
+                else if ((endTime.Date == startTime.AddDays(1).Date) && IsNightStart(startTime) && IsNightEndTime(endTime))
+                {
+                    return "Night Rate is :- " + NightRate.Rate;
+                }
+                else
+                {
+                    return "Standard Rate is :-" + (endTime.Date - startTime.Date).Days * StandardRate.ThreePluse;
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
         }
         public static float StandardRateCalculate(int TotalHours)
         {

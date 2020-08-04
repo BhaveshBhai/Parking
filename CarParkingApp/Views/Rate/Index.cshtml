@@ -66,8 +66,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Total Amount:</label>
-                    <input type="text" class="form-control" id="PayrateCaluculate" disabled>
+                    <label class="form-control" id="PayrateCaluculate" disabled />
                 </div>
             </div>
            
@@ -85,7 +84,8 @@
             url: "/api/PayRate/GetRate",
            data:{startTime:sTime, endTime: eTime },
             success: function (result) {
-                $("#PayrateCaluculate").val(result);
+                alert(result);
+                $("#PayrateCaluculate").html(result);
                 $('#exampleModal').modal('show');
             }
         });
